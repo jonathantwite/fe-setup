@@ -1,6 +1,15 @@
 # Notes
 
 * [1.  Initial npm setup](#1--initial-npm-setup)
+* [2.  Create module file](#2--Create-module-file)
+* [3.  Add Rollup](#3--Add-Rollup)
+* [4.  Add Babel](#4--Add-Babel)
+* [5.  Switching to Gulpfile](#5--Switching-to-Gulpfile)
+* [6.  Adding uglification with Terser](#6--Adding-uglification-with-Terser)
+* [7.  Adding Bootstrap](#3--Adding-Bootstrap)
+* [8.  Adding SCSS compilation](#8--Adding-SCSS-compilation)
+* [9.  Using only required Bootstrap styling](#9--Using-only-required-Bootstrap-styling)
+* [10.  Combine build processes](#10--Combine-build-processes)
 
 ## 1.  Initial npm setup
 
@@ -59,7 +68,7 @@ This allows the command `npx rollup -c` to create a new file `scripts/index-page
 
 Note that *Tree-Shaking* has automatically taken place and so the functions `multiply()` and `divide()` do not appear in the output file.
 
-## 3.  Add Babel
+## 4.  Add Babel
 
 *@babel/core*, *@babel/preset-env* and *@rollup/plugin-babel* were installed as devDependencies.
 
@@ -97,7 +106,7 @@ This will only transpile files in the `src/` folder, and explicitly ignores the 
 
 A `.browserslistrc` file is created with the required browser targets.  Use the `npx browserslist` command to show all browsers targeted by the rules added to this file.
 
-## 4.  Switching to Gulpfile
+## 5.  Switching to Gulpfile
 
 *gulp* was installed as a devDependency.
 
@@ -109,7 +118,7 @@ const resolve = require('@rollup/plugin-node-resolve');
 const { babel } = require('@rollup/plugin-babel');
 ```
 
-## 5.  Adding uglification with Terser
+## 6.  Adding uglification with Terser
 
 *rollup-plugin-terser* was installed as a devDependency.
 
@@ -126,7 +135,7 @@ const rollupBabel = () =>
   })...
 ```
 
-## 6.  Adding Bootstrap
+## 7.  Adding Bootstrap
 
 The Bootstrap 4 JavaScript is added via an import of `'bootstrap'` on the `index-page.js` file.  The complete Bootstrap 4 css is initially added via a link tag pointing to the `node_modules/` bootstrap distribution file.
 
@@ -134,7 +143,7 @@ The Bootstrap 4 JavaScript is added via an import of `'bootstrap'` on the `index
 <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 ```
 
-## 7.  Adding SCSS compilation
+## 8.  Adding SCSS compilation
 
 *gulp-sass*, *postcss*, *autoprefixer* and *cssnano* were installed as devDependencies. 
 
@@ -161,7 +170,7 @@ The task outputs the files to the `styles/` folder and the link tab in `index.ht
 <link href="styles/site.css" rel="stylesheet" />
 ```
 
-## 8.  Using only required Bootstrap styling
+## 9.  Using only required Bootstrap styling
 
 Note the original SCSS layout was based on the 7-1 Architecture method, but doesn't work very well with Bootstrap (especially when removing unused map items).
 
@@ -175,7 +184,7 @@ The `vendor/_bootstrap_.scss` file was renamed `vendor/_site-bootstrap.scss`.  T
 
 The customisations within the `themes/` folder were then added to this file followed by the bootstrap components wanted.
 
-## 9.  Combine build processes
+## 10.  Combine build processes
 
 *del* as installed as a devDependency.
 
