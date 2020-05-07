@@ -4,19 +4,22 @@
 @import "bootstrap/scss/mixins";
 
 // Customisations
-$body-bg: #000;
-$body-color: #111;
+$body-bg: #ddd;
+$body-color: rgb(11, 61, 1);
 
 $theme-colors: (
   "primary": #0074d9,
   "danger": #ff4136
 );
 
-
+$theme-colors: map-remove($theme-colors, "secondary", "info", "warning", "light", "dark");
 
 // Optional
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
-@import "bootstrap/scss/code";
+//@import "bootstrap/scss/images";
+//@import "bootstrap/scss/code";
 @import "bootstrap/scss/grid";
+
+// Components
+@import "bootstrap/scss/forms";

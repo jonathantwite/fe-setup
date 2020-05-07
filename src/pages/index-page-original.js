@@ -1,6 +1,6 @@
 import {doCalculation} from '../services/calculatorService.mjs';
-import 'jquery';
-import 'bootstrap';
+import '../../node_modules/jquery/dist/jquery.js';
+import '../../node_modules/bootstrap/dist/js/bootstrap.js';
 
 function runCalculation(){
     const v1 = Number($('#input1').val());
