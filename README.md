@@ -172,3 +172,19 @@ The `vendor/_bootstrap_.scss` file was renamed `vendor/_site-bootstrap.scss`.  T
 ```
 
 The customisations within the `themes/` folder were then added to this file followed by the bootstrap components wanted.
+
+## 9.  Combine build processes
+
+*del* as installed as a devDependency.
+
+A new `clean` gulp task was created to delete the compiled JavaScript and CSS files.  The default task was updated to run this `clean` task in series before the JavaScript and css tasks which run in parallel.
+
+In `package.json`, the `build` script is updated to run the default gulp task.
+
+```[json]
+...
+"scripts": {
+    ...
+    "build": "gulp"
+},
+```

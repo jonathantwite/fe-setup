@@ -2,7 +2,7 @@ import {doCalculation} from '../services/calculatorService.mjs';
 //import '../../node_modules/jquery/dist/jquery.js';
 import 'jquery';
 import 'bootstrap';
-import '../../scss/site.scss'
+//import '../../scss/site.scss'
 
 function runCalculation(){
     const v1 = Number($('#input1').val());

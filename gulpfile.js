@@ -1,4 +1,5 @@
 const { series, parallel, src, dest } = require('gulp');
+const del = require('del');
 const rollup = require('rollup');
 const resolve = require('@rollup/plugin-node-resolve');
 const { babel } = require('@rollup/plugin-babel');
@@ -8,6 +9,9 @@ const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss');
 const sass = require('gulp-sass');
 const cssnano = require('cssnano');
+
+const scriptsOut = 'scripts';
+const stylesOut = 'styles';
 
 const jsRollupBabel = () =>
   rollup.rollup({
@@ -23,7 +27,7 @@ const jsRollupBabel = () =>
     ]
   }).then(bundle => 
     bundle.write({
-      file: 'scripts/index-page.js',
+      file: scriptsOut + '/index-page.js',
       format: 'iife'
     })
   );
@@ -40,15 +44,16 @@ const buildCss = () =>
       autoprefixer(),
       cssnano()
     ]))
-    .pipe(dest('./styles/'));
+    .pipe(dest('./' + stylesOut + '/'));
   
-  
+const clean = () => del([scriptsOut + '/**', '!' + scriptsOut, stylesOut + '/**', '!' + stylesOut]);
 
-const def = series(parallel(buildJs, buildCss));
+const def = series(clean, parallel(buildJs, buildCss));
 
 
 module.exports = {
   "default": def,
+  clean,
   buildJs,
   buildCss
 };
