@@ -1,5 +1,7 @@
 # Notes
 
+* [1.  Initial npm setup](#1--initial-npm-setup)
+
 ## 1.  Initial npm setup
 
 *jquery*, *bootstrap* and *popper.js* were added as dependencies.
