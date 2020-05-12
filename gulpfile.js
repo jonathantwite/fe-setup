@@ -1,4 +1,4 @@
-const { series, parallel, src, dest } = require('gulp');
+const { series, parallel, src, dest, watch } = require('gulp');
 const del = require('del');
 const rollup = require('rollup');
 const resolve = require('@rollup/plugin-node-resolve');
@@ -50,12 +50,14 @@ const clean = () => del([scriptsOut + '/**', '!' + scriptsOut, stylesOut + '/**'
 
 const def = series(clean, parallel(buildJs, buildCss));
 
+const dev = watch(['src/**/*.js', 'scss/**/*.scss'], { ignoreInitial: false }, def);
 
 module.exports = {
   "default": def,
   clean,
   buildJs,
-  buildCss
+  buildCss,
+  dev: function() { dev }
 };
 
 
