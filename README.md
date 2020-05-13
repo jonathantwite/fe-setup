@@ -187,7 +187,7 @@ The customisations within the `themes/` folder were then added to this file foll
 
 ## 10.  Combine build processes
 
-*del* as installed as a devDependency.
+*del* was installed as a devDependency.
 
 A new `clean` gulp task was created to delete the compiled JavaScript and CSS files.  The default task was updated to run this `clean` task in series before the JavaScript and css tasks which run in parallel.
 
@@ -210,3 +210,9 @@ Tasks to build the production versions were created and exported in a gulp `seri
 A `develop` task was created that launches two `watch` processes, one for changes to `.js` files, one for changes to `*.scss` files.  Both use the `ignoreInitial: false` option to build the code on first run.
 
 A new script in `package.json` is created to run the develop task.
+
+## 12.  Add purgecss
+
+*@fullhuman/postcss-purgecss* was installed as a devDependency.
+
+The *purgecss* plugin was added to the *postcss* call in the `css` gulp task and configured to look at html files in the root folder.

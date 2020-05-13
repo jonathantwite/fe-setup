@@ -9,6 +9,7 @@ const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss');
 const sass = require('gulp-sass');
 const cssnano = require('cssnano');
+const purgecss = require('@fullhuman/postcss-purgecss');
 
 const scriptsOut = 'scripts';
 const stylesOut = 'styles';
@@ -48,7 +49,12 @@ function css(isDev){
         .pipe(postcss([
             autoprefixer(),
             ...!isDev 
-                ? [ cssnano() ]
+                ? [ 
+                    cssnano(),
+                    purgecss({
+                        content: ['*.html', '!node_modules/**/*']
+                    })
+                ]
                 : []
         ]))
         .pipe(dest('./' + stylesOut + '/'));
