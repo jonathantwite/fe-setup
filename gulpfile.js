@@ -2,6 +2,7 @@ const { series, parallel, src, dest, watch } = require('gulp');
 const del = require('del');
 const rollup = require('rollup');
 const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
 const { babel } = require('@rollup/plugin-babel');
 const { terser } = require('rollup-plugin-terser');
 const autoprefixer = require('autoprefixer')
@@ -24,7 +25,19 @@ function js(isDev){
                     babel({
                         exclude: 'node_modules/**',
                         include: 'src/**',
-                        babelHelpers: 'bundled'
+                        babelHelpers: 'bundled',
+                        presets: [
+                            [
+                                '@babel/preset-env', {
+                                    useBuiltIns: "usage",
+                                    corejs: 3,
+                                    modules: false
+                                }
+                            ]
+                        ]
+                    }),
+                    commonjs({ 
+                        include: 'node_modules/core-js/**'
                     }),
                     terser() 
                 ]

@@ -222,3 +222,13 @@ The *purgecss* plugin was added to the *postcss* call in the `css` gulp task and
 ## 13.  Add auditing
 
 A new script that runs the `npm audit` command using the `production` flag to ignore devDependencies was created.
+
+## 14.  Adding polyfills
+
+*core-js* and *@rollup/plugin-commonjs* were added as devDependencies.
+
+A second method was created in `calculatorService.mjs` that includes a call to the `string.prototype.includes()` method.  This requires a polyfill to work in IE11.
+
+the `@babel/preset-env` preset is added to the *babel* configuration with the `useBuiltIns` parameter set to `"usage"`.  This imports required polyfills dependent on the target browsers and the functions actually used.
+
+The *commonjs* plugin for rollup is required to convert the *core-js* polyfills imported by *Babel* from their *CommonJS* format into ES6 modules for rollup to process.

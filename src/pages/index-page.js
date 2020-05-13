@@ -1,4 +1,4 @@
-import {doCalculation} from '../services/calculatorService.mjs';
+import {doCalculation2} from '../services/calculatorService.mjs';
 import 'jquery';
 import 'bootstrap';
 
@@ -7,7 +7,7 @@ function runCalculation(){
     const v2 = Number($('#input2').val());
     const v3 = Number($('#input3').val());
     
-    $('#answer').text((v1 && v2 && v3) ? doCalculation(v1,v2,v3) : '');
+    $('#answer').text((v1 && v2 && v3) ? doCalculation2(v1,v2,v3) : '');
 }
 
 $(function(){
