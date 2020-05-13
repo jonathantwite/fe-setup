@@ -11,6 +11,8 @@
 * [9.  Using only required Bootstrap styling](#9--Using-only-required-Bootstrap-styling)
 * [10.  Combine build processes](#10--Combine-build-processes)
 * [11.  Dev build process with watchers](#11--Dev-build-process-with-watchers)
+* [12.  Add purgecss](#12--Add-purgecss)
+* [13.  Add auditing](#13--Add-auditing)
 
 ## 1.  Initial npm setup
 
@@ -87,12 +89,12 @@ This prevents babel from converting the es6 modules to *IIFE* or *CommonJS* modu
 
 The `rollup.config.js` file is updated to use the babel rollup plugin:
 
-```
+```[js]
 import babel from '@rollup/plugin-babel';
 
 export default {
     ...
-    plugins: [ 
+    plugins: [
         ...
         babel({
           exclude: 'node_modules/**',
@@ -146,7 +148,7 @@ The Bootstrap 4 JavaScript is added via an import of `'bootstrap'` on the `index
 
 ## 8.  Adding SCSS compilation
 
-*gulp-sass*, *postcss*, *autoprefixer* and *cssnano* were installed as devDependencies. 
+*gulp-sass*, *postcss*, *autoprefixer* and *cssnano* were installed as devDependencies.
 
 A new folder is created called `scss/` with a `site.scss` file.  A `_site.scss` theme file is created in a `scss/themes/` folder.  The `site.scss` file imports the theme file and then the bootstrap file using
 
@@ -216,3 +218,7 @@ A new script in `package.json` is created to run the develop task.
 *@fullhuman/postcss-purgecss* was installed as a devDependency.
 
 The *purgecss* plugin was added to the *postcss* call in the `css` gulp task and configured to look at html files in the root folder.
+
+## 13.  Add auditing
+
+A new script that runs the `npm audit` command using the `production` flag to ignore devDependencies was created.

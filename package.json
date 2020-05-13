@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp",
-    "dev": "gulp develop"
+    "dev": "gulp develop",
+    "audit": "npm audit --production"
   },
   "author": "Twite, Jonathan",
   "license": "MIT",
