@@ -10,6 +10,7 @@
 * [8.  Adding SCSS compilation](#8--Adding-SCSS-compilation)
 * [9.  Using only required Bootstrap styling](#9--Using-only-required-Bootstrap-styling)
 * [10.  Combine build processes](#10--Combine-build-processes)
+* [11.  Dev build process with watchers](#11--Dev-build-process-with-watchers)
 
 ## 1.  Initial npm setup
 
@@ -125,7 +126,7 @@ const { babel } = require('@rollup/plugin-babel');
 The terser plugin was imported into the `gulpfile.js` and added as a plugin to the `rollup.rollup()` configuration:
 
 ```[js]
-const rollupBabel = () =>
+function rollupBabel(){
     rollup.rollup({
         ...
         plugins: [
@@ -199,3 +200,13 @@ In `package.json`, the `build` script is updated to run the default gulp task.
     "build": "gulp"
 },
 ```
+
+## 11.  Dev build process with watchers
+
+The `jsBuild()` and `cssBuild()` gulp tasks were renamed `js()` and `css()`, and given a parameter `isDev`.  Plugins could then be conditionally added Using the ES6 spread operator allowing dev versions of the two tasks to return non-minified, non-transpiled code.
+
+Tasks to build the production versions were created and exported in a gulp `series` as the default task.
+
+A `develop` task was created that launches two `watch` processes, one for changes to `.js` files, one for changes to `*.scss` files.  Both use the `ignoreInitial: false` option to build the code on first run.
+
+A new script in `package.json` is created to run the develop task.

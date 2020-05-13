@@ -13,16 +13,21 @@ const cssnano = require('cssnano');
 const scriptsOut = 'scripts';
 const stylesOut = 'styles';
 
-function devJs(){
+function js(isDev){
     return rollup.rollup({
         input: 'src/pages/index-page.js',
         plugins: [ 
             resolve(),
-            babel({
-                exclude: 'node_modules/**',
-                include: 'src/**',
-                babelHelpers: 'bundled'
-            })
+            ...!isDev
+                ? [ 
+                    babel({
+                        exclude: 'node_modules/**',
+                        include: 'src/**',
+                        babelHelpers: 'bundled'
+                    }),
+                    terser() 
+                ]
+                : []
         ]
     }).then(bundle => 
         bundle.write({
@@ -30,53 +35,41 @@ function devJs(){
             format: 'iife'
         })
     );
-}
-
-function buildJs(){
-    return rollup.rollup({
-        input: 'src/pages/index-page.js',
-        plugins: [ 
-            resolve(),
-            babel({
-                exclude: 'node_modules/**',
-                include: 'src/**',
-                babelHelpers: 'bundled'
-            }),
-            terser()
-        ]
-    }).then(bundle => 
-        bundle.write({
-            file: scriptsOut + '/index-page.js',
-            format: 'iife'
-        })
-    );
-}
-
-function devCss(){
-    return src('./scss/**/*.scss')
-        .pipe(sass({
-            includePaths: ['node_modules']
-        }).on('error', sass.logError))
-        //.pipe(concatcss('all.css'))
-        .pipe(postcss([
-            autoprefixer()
-        ]))
-        .pipe(dest('./' + stylesOut + '/'));
 }
    
-function buildCss(){
+function css(isDev){
     return src('./scss/**/*.scss')
         .pipe(sass({
             includePaths: ['node_modules']
         }).on('error', sass.logError))
-        //.pipe(concatcss('all.css'))
+
+        //css.pipe(concatcss('all.css'))
+        
         .pipe(postcss([
             autoprefixer(),
-            cssnano()
+            ...!isDev 
+                ? [ cssnano() ]
+                : []
         ]))
         .pipe(dest('./' + stylesOut + '/'));
 }
   
+function buildCss(){
+    return css(false);
+}
+
+function devCss(){
+    return css(true);
+}
+
+function buildJs(){
+    return js(false);
+}
+
+function devJs(){
+    return js(true);
+}
+
 function clean(){
     return del([scriptsOut + '/**', '!' + scriptsOut, stylesOut + '/**', '!' + stylesOut]);
 }
